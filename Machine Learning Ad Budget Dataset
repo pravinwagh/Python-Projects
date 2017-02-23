@@ -1,0 +1,147 @@
+"""The given dataset contains ad budgets for different media channels and the corresponding ad sales of
+XYZ firm. Evaluate the dataset to:
+• Find the features or media channels used by the firm
+• Find the sales figures for each channel
+• Create a model to predict the sales outcome
+• Split as training and testing datasets for the model
+• Calculate the Mean Square Error (MSE)"""
+
+# coding: utf-8
+
+# In[1]:
+
+# Import Libraries
+import pandas as pd
+
+
+# In[2]:
+
+# Import the advertising dataset
+Advert_ds = pd.read_csv('C:\Users\pravinw\Documents\DATA SCIENTIST\PractiseAssignment_Simplilearn\Advertising_Budget_and_Sales (1)\Advertising Budget and Sales.csv', index_col=0)
+
+
+# In[3]:
+
+# View top 5 records of the dataset
+Advert_ds.head()
+
+
+# In[4]:
+
+# Total record counts in the dataset
+Advert_ds.size
+
+
+# In[6]:
+
+# Check the number of observations(rows) and attributes(columns) in the dataset
+Advert_ds.shape
+
+
+# In[7]:
+
+# View the names of attributes
+Advert_ds.columns
+
+
+# In[8]:
+
+# Create a feature object from the column
+X_features = Advert_ds[['TV Ad Budget ($)','Radio Ad Budget ($)','Newspaper Ad Budget ($)']]
+
+
+# In[9]:
+
+# View the feature object
+X_features.head()
+
+
+# In[10]:
+
+# Create target object
+Y_target = Advert_ds[['Sales ($)']]
+
+
+# In[11]:
+
+# View the target object
+Y_target.head()
+
+
+# In[12]:
+
+# Verify all observations in feature object has been captured
+X_features.shape
+
+
+# In[13]:
+
+# Verify all observations in target object has been captured
+Y_target.shape
+
+
+# In[14]:
+
+# Split the dataset
+from sklearn.cross_validation import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X_features, Y_target, random_state=1)
+
+
+# In[15]:
+
+# Verify the split for each train and test set
+print X_train.shape
+print X_test.shape
+print Y_train.shape
+print Y_test.shape
+
+
+# In[16]:
+
+# Create a linear regression model
+from sklearn.linear_model import LinearRegression
+LinearReg = LinearRegression()
+
+
+# In[17]:
+
+# Fit the model
+LinearReg.fit(X_train, Y_train)
+
+
+# In[18]:
+
+# Print the intercept and coefficients
+print LinearReg.intercept_
+print LinearReg.coef_
+
+
+# In[19]:
+
+# Predict the outcome for the testing dataset
+Y_Predict = LinearReg.predict(X_test)
+
+
+# In[20]:
+
+# View the results
+Y_Predict
+
+
+# In[21]:
+
+# Importing Libraries for calculating Mean Square Error
+from sklearn import metrics
+import numpy as np
+
+
+# In[22]:
+
+# Calculate the MSE
+print np.sqrt(metrics.mean_squared_error(Y_test,Y_Predict))
+
+
+# In[ ]:
+
+
+
