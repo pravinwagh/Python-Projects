@@ -1,0 +1,128 @@
+"""The given dataset lists the glucose level readings of several pregnant women taken either during a
+survey examination or routine medical care. It specifies if the 2 hour post-load plasma glucose was at
+least 200 mg/dl. Analyze the dataset to:
+1. Find the features of the dataset,
+2. Find the response label of the dataset,
+3. Create a model to predict the diabetes outcome,
+4. Use training and testing datasets to train the model, and
+5. Check the accuracy of the model."""
+
+
+# coding: utf-8
+
+# In[1]:
+
+# import the required libraries
+import pandas as pd
+
+
+# In[2]:
+
+# Import the diabetes dataset
+Diabetes_ds = pd.read_csv('C:\Users\pravinw\Documents\Fractal\DATA SCIENTIST\PractiseAssignment_Simplilearn\pima-indians-diabetes-DATA\pima-indians-diabetes.data', header=None)
+
+
+# In[3]:
+
+# View the first 5 record
+Diabetes_ds.head()
+
+
+# In[4]:
+
+# Using the name file select the attributes of the dataset
+attribute_names = ['Pregnant','Glucose','BP','Skin','Insulin', 'BMI', 'Pedigree','Age','Label'] 
+
+
+# In[5]:
+
+# Fix the Attribute Name to the dataset
+Diabetes_ds = pd.read_csv('C:\Users\pravinw\Documents\Fractal\DATA SCIENTIST\PractiseAssignment_Simplilearn\pima-indians-diabetes-DATA\pima-indians-diabetes.data', header= None, names= attribute_names)
+
+
+# In[6]:
+
+# Verify the dataset
+Diabetes_ds.head()
+
+
+# In[7]:
+
+# View the no. of rows and columns
+Diabetes_ds.shape
+
+
+# In[8]:
+
+# Select Attribute from Dataset to create model
+Select_Columns = ['Pregnant','Insulin', 'BMI', 'Age']
+
+
+# In[9]:
+
+# Create the feature object
+X_feature = Diabetes_ds[Select_Columns]
+
+
+# In[10]:
+
+# Create the response object
+Y_target = Diabetes_ds['Label']
+
+
+# In[11]:
+
+# View the shape of the Feature Object
+X_feature.shape
+
+
+# In[12]:
+
+# View the shape of target object
+Y_target.shape
+
+
+# In[20]:
+
+# Split the Dataset into train and test set
+from sklearn.cross_validation import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X_feature, Y_target, random_state = 1)
+
+
+# In[14]:
+
+# Create logistics regression model
+from sklearn.linear_model import LogisticRegression
+LogisRegr = LogisticRegression()
+
+
+# In[15]:
+
+LogisRegr.fit(X_train,Y_train)
+
+
+# In[16]:
+
+# predict the test set
+Y_predict = LogisRegr.predict(X_test)
+
+
+# In[17]:
+
+# Evaluate the accuracy of the model
+# Import the library
+from sklearn import metrics
+
+
+# In[18]:
+
+# View the Accuracy of the model
+print metrics.accuracy_score(Y_test, Y_predict)
+
+
+# In[19]:
+
+# Print the view 30 actual and predicted responses
+print 'Actual: ', Y_test.values[0:30]
+print 'Predicted: ', Y_predict[0:30]
+
