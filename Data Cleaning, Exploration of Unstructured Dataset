@@ -1,0 +1,92 @@
+
+# coding: utf-8
+
+# In[1]:
+
+# Importing Libraries
+import pandas as pd
+
+
+# In[2]:
+
+# Create an object and Load the dataset
+NY_FireDept_ds = pd.read_csv('C:\\Users\\pravinw\\Documents\\DATA SCIENTIST\\FDNY\\FDNY.csv')
+
+
+# In[3]:
+
+# View the content
+NY_FireDept_ds.describe
+
+
+# In[4]:
+
+# View the first 5 records
+NY_FireDept_ds.head()
+
+
+# In[5]:
+
+# Skip the Duplicate Header row
+NY_FireDept_ds = pd.read_csv('C:\\Users\\pravinw\\Documents\\Fractal\\DATA SCIENTIST\\FDNY\\FDNY.csv', skiprows=1)
+
+
+# In[6]:
+
+# Verify the Dataset
+NY_FireDept_ds.head()
+
+
+# In[7]:
+
+# Data Statistics
+NY_FireDept_ds.describe()
+
+
+# In[8]:
+
+# View the attributes
+NY_FireDept_ds.columns
+
+
+# In[9]:
+
+# View the index of the dataset
+NY_FireDept_ds.index
+
+
+# In[10]:
+
+# Count of records of each attribute
+NY_FireDept_ds.count()
+
+
+# In[11]:
+
+# view datatype of all attribute
+NY_FireDept_ds.dtypes
+
+
+# In[12]:
+
+# Group the borough
+groupby_borough = NY_FireDept_ds.groupby('Borough')
+
+
+# In[13]:
+
+# Individual Borough count
+groupby_borough.size()
+
+
+# In[14]:
+
+# Select Fire Dept information for Manhattan
+Manhattan_borough = groupby_borough.get_group('Manhattan')
+
+
+# In[15]:
+
+# View the Manhattan Fire Information
+Manhattan_borough
+
