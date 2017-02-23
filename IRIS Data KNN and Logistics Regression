@@ -1,0 +1,97 @@
+
+# coding: utf-8
+
+# In[1]:
+
+import numpy as np
+import pandas as pd
+
+
+# In[2]:
+
+from sklearn.datasets import load_iris
+Iris_ds = load_iris()
+
+
+# In[3]:
+
+type(Iris_ds)
+
+
+# In[4]:
+
+print Iris_ds.DESCR
+
+
+# In[5]:
+
+print Iris_ds.feature_names
+
+
+# In[6]:
+
+print Iris_ds.target
+
+
+# In[7]:
+
+print Iris_ds.data.shape
+
+
+# In[8]:
+
+X_features = Iris_ds.data
+Y_Target = Iris_ds.target
+
+
+# In[9]:
+
+print X_features.shape
+print Y_Target.shape
+
+
+# In[10]:
+
+from sklearn.neighbors import KNeighborsClassifier
+
+
+# In[11]:
+
+knn = KNeighborsClassifier(n_neighbors=1)
+
+
+# In[12]:
+
+print knn
+
+
+# In[13]:
+
+knn.fit(X_features,Y_Target)
+
+
+# In[14]:
+
+X_new = [[3,5,4,1],[5,3,4,2]]
+
+
+# In[15]:
+
+knn.predict(X_new)
+
+
+# In[16]:
+
+from sklearn.linear_model import LogisticRegression
+logReg = LogisticRegression()
+
+
+# In[17]:
+
+logReg.fit(X_features,Y_Target)
+
+
+# In[18]:
+
+logReg.predict(X_new)
+
