@@ -1,0 +1,127 @@
+
+# coding: utf-8
+
+# In[1]:
+
+import numpy as np
+import pandas as pd
+
+
+# In[2]:
+
+from sklearn.datasets import load_boston
+boston_ds = load_boston()
+
+
+# In[3]:
+
+print boston_ds['DESCR']
+
+
+# In[4]:
+
+print boston_ds['feature_names']
+
+
+# In[5]:
+
+df_boston = pd.DataFrame(boston_ds.data)
+
+
+# In[6]:
+
+df_boston.columns = boston_ds.feature_names
+
+
+# In[7]:
+
+df_boston.head()
+
+
+# In[8]:
+
+print boston_ds.data.shape
+
+
+# In[9]:
+
+print boston_ds.target.shape
+
+
+# In[10]:
+
+print boston_ds['target']
+
+
+# In[11]:
+
+X_features = boston_ds.data
+Y_target = boston_ds.target
+
+
+# In[12]:
+
+from sklearn.linear_model import LinearRegression
+linearRegr = LinearRegression()
+
+
+# In[13]:
+
+linearRegr.fit(X_features,Y_target)
+
+
+# In[14]:
+
+linearRegr.intercept_
+
+
+# In[15]:
+
+print 'the estimated intercept %.2f '% linearRegr.intercept_
+
+
+# In[16]:
+
+linearRegr.coef_
+
+
+# In[17]:
+
+print 'the coefficient is %d'% len(linearRegr.coef_)
+
+
+# In[18]:
+
+from sklearn import cross_validation
+X_train, X_test, Y_train, Y_test = cross_validation.train_test_split(X_features, Y_target)
+
+
+# In[19]:
+
+print boston_ds.data.shape
+
+
+# In[20]:
+
+print X_train.shape, X_test.shape, Y_train.shape, Y_test.shape
+
+
+# In[21]:
+
+linearRegr.fit(X_train,Y_train)
+
+
+# In[22]:
+
+print 'Mean Squared Estimator value is %.2f '% np.mean((linearRegr.predict(X_test) - Y_test) ** 2)
+
+
+# In[23]:
+
+print 'Variance Score is %.2f '% linearRegr.score(X_test,Y_test)
+
+
+# In[ ]:
+
+
+
