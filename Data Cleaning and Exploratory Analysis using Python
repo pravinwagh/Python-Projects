@@ -1,0 +1,115 @@
+
+# coding: utf-8
+
+# In[2]:
+
+#import libraries
+import pandas as pd
+
+
+# In[3]:
+
+# import Federal Aviation Authority dataset
+FedAviAuth_ds = pd.read_csv('C:\\Users\\pravinw\\Documents\\DATA SCIENTIST\\faa_ai_prelim\\faa_ai_prelim.csv')
+
+
+# In[4]:
+
+# View the Shape of Dataset (contains 83 rows and 42 columns)
+FedAviAuth_ds.shape
+
+
+# In[5]:
+
+# View Top 5 observations
+FedAviAuth_ds.head()
+
+
+# In[6]:
+
+# Check the Column names in the dataset
+FedAviAuth_ds.columns
+
+
+# In[7]:
+
+# Select require columns and create a new dataframe
+FAA_new_df = FedAviAuth_ds[['ACFT_MAKE_NAME','LOC_STATE_NAME','ACFT_MODEL_NAME','RMK_TEXT','FLT_PHASE','EVENT_TYPE_DESC','FATAL_FLAG']]
+
+
+# In[8]:
+
+# Check the object type of the dataset
+type(FAA_new_df)
+
+
+# In[9]:
+
+# Check the Top 5 observations of new Dataset
+FAA_new_df.head()
+
+
+# In[10]:
+
+# Cleaning the Dataset
+# Replace all missing values(NAN) in Fatal Flag column with the required output
+FAA_new_df['FATAL_FLAG'].fillna(value='No', inplace=True)
+
+
+# In[11]:
+
+# Now view the top 5 records where all the value with NAN is replaced by No in the Fatal Flag column
+FAA_new_df.head()
+
+
+# In[12]:
+
+# View the shape of the new dataframe
+FAA_new_df.shape
+
+
+# In[13]:
+
+# Drop the rows in ACFT_MAKE_NAME column which has missing values
+# The same dataset will be amended 
+FAA_new_df = FAA_new_df.dropna(subset=['ACFT_MAKE_NAME'])
+
+
+# In[14]:
+
+# View the shape of the Dataset to compare the new record count against older
+# We find that 5 records with missing ACFT_MAKE_NAME are dropped from our table
+FAA_new_df.shape
+
+
+# In[15]:
+
+# Groupby as per ACFT_MAKE_NAME
+Aircraft_model_count = FAA_new_df.groupby('ACFT_MAKE_NAME')
+
+
+# In[16]:
+
+# View the counts
+# One can understand from the data CESSNA is highest used aircraft 
+Aircraft_model_count.size()
+
+
+# In[17]:
+
+# Group dataset with Fatal Count
+Fatal_accidents = FAA_new_df.groupby('FATAL_FLAG')
+
+
+# In[18]:
+
+# View the Fatal and Non Fatal Counts
+Fatal_accidents.size()
+
+
+# In[19]:
+
+# Create Dataframe with only the fatal accidents (FATAL_FLAG vaue = Yes )
+fatal_yes = Fatal_accidents.get_group('Yes')
+fatal_yes
+
