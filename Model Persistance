@@ -1,0 +1,77 @@
+
+# coding: utf-8
+
+# In[1]:
+
+from sklearn.datasets import load_iris
+iris_dataset = load_iris()
+
+
+# In[2]:
+
+iris_dataset.feature_names
+
+
+# In[3]:
+
+iris_dataset.target
+
+
+# In[4]:
+
+X_feature = iris_dataset.data
+Y_target = iris_dataset.target
+
+
+# In[5]:
+
+X_new = [[3,5,4,1],[5,3,4,2]]
+
+
+# In[6]:
+
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression()
+
+
+# In[7]:
+
+logreg.fit(X_feature,Y_target)
+
+
+# In[8]:
+
+logreg.predict(X_new)
+
+
+# In[9]:
+
+import pickle as pkl
+
+
+# In[10]:
+
+persist_model = pkl.dumps(logreg)
+persist_model
+
+
+# In[11]:
+
+from sklearn.externals import joblib
+joblib.dump(logreg,'regresfilename.pkl')
+
+
+# In[12]:
+
+new_logreg_estimator = joblib.load('regresfilename.pkl')
+
+
+# In[13]:
+
+new_logreg_estimator
+
+
+# In[14]:
+
+new_logreg_estimator.predict(X_new)
+
